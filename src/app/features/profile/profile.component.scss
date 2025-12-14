@@ -1,0 +1,165 @@
+.profile {
+  max-width: 800px;
+  margin: 0 auto;
+
+  .profile-header {
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary, #1f2937);
+      margin: 0 0 0.5rem 0;
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--text-secondary, #6b7280);
+      margin: 0;
+    }
+  }
+
+  .profile-content {
+    .profile-card {
+      background: white;
+      border: 1px solid var(--border-color, #e5e7eb);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+      .avatar-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border-color, #e5e7eb);
+
+        .avatar-large {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 3rem;
+          font-weight: 700;
+        }
+
+        .change-avatar-btn {
+          background: transparent;
+          border: 1px solid var(--border-color, #e5e7eb);
+          border-radius: 0.5rem;
+          padding: 0.5rem 1rem;
+          color: var(--text-primary, #1f2937);
+          font-size: 0.875rem;
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &:hover {
+            background: var(--bg-secondary, #f9fafb);
+            border-color: #3b82f6;
+            color: #3b82f6;
+          }
+        }
+      }
+
+      .form-section {
+        margin-bottom: 2rem;
+
+        h2 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: var(--text-primary, #1f2937);
+          margin: 0 0 1.5rem 0;
+        }
+
+        .form-group {
+          margin-bottom: 1.5rem;
+
+          label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary, #1f2937);
+            margin-bottom: 0.5rem;
+          }
+
+          .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color, #e5e7eb);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-primary, #1f2937);
+            background: white;
+            transition: all 0.2s;
+
+            &:focus {
+              outline: none;
+              border-color: #3b82f6;
+              box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            }
+
+            &:disabled {
+              background: var(--bg-secondary, #f9fafb);
+              color: var(--text-secondary, #6b7280);
+              cursor: not-allowed;
+            }
+          }
+
+          .error-message {
+            display: block;
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+          }
+        }
+      }
+
+      .profile-actions {
+        display: flex;
+        gap: 1rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color, #e5e7eb);
+
+        .btn {
+          padding: 0.75rem 1.5rem;
+          border-radius: 0.5rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+          border: none;
+
+          &.btn-primary {
+            background: #3b82f6;
+            color: white;
+
+            &:hover:not(:disabled) {
+              background: #2563eb;
+            }
+
+            &:disabled {
+              opacity: 0.5;
+              cursor: not-allowed;
+            }
+          }
+
+          &.btn-secondary {
+            background: var(--bg-secondary, #f9fafb);
+            color: var(--text-primary, #1f2937);
+            border: 1px solid var(--border-color, #e5e7eb);
+
+            &:hover {
+              background: var(--border-color, #e5e7eb);
+            }
+          }
+        }
+      }
+    }
+  }
+}

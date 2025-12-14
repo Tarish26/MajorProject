@@ -1,0 +1,18 @@
+<div class="metric-card" [ngStyle]="cardStyles()">
+  <div class="metric-header">
+    <div class="metric-icon" [style.background-color]="metric.color + '20'">
+      <span class="material-icons" [style.color]="metric.color">{{ metric.icon }}</span>
+    </div>
+    <div class="metric-change" [class]="metric.changeType">
+      <span class="material-icons">
+        {{ metric.changeType === 'increase' ? 'trending_up' : metric.changeType === 'decrease' ? 'trending_down' : 'remove' }}
+      </span>
+      <span>{{ metric.change > 0 ? '+' : '' }}{{ metric.change }}%</span>
+    </div>
+  </div>
+  
+  <div class="metric-body">
+    <h3 class="metric-title" [ngStyle]="titleStyles()">{{ metric.title }}</h3>
+    <p class="metric-value" [ngStyle]="valueStyles()">{{ metric.value }}</p>
+  </div>
+</div>

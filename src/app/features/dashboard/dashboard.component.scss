@@ -1,0 +1,84 @@
+.dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  .dashboard-header {
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary, #1f2937);
+      margin: 0 0 0.5rem 0;
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--text-secondary, #6b7280);
+      margin: 0;
+    }
+  }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    min-height: 400px;
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--border-color);
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+  }
+
+  .dashboard-content {
+    display: grid;
+    width: 100%;
+    grid-auto-rows: auto;
+
+    .card-wrapper {
+      min-width: 0; // Prevent grid overflow
+      
+      // Ensure full width for span cards
+      &[style*="span 4"] {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    .dashboard-header {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .dashboard-content {
+      grid-template-columns: 1fr !important;
+      
+      .card-wrapper {
+        grid-column: span 1 !important;
+      }
+    }
+  }
+}

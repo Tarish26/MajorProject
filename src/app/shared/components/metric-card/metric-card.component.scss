@@ -1,0 +1,80 @@
+.metric-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.2s, background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: var(--shadow-sm);
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .metric-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    .metric-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .material-icons {
+        font-size: 24px;
+      }
+    }
+
+    .metric-change {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+
+      .material-icons {
+        font-size: 16px;
+      }
+
+      &.increase {
+        color: #10b981;
+        background: rgba(16, 185, 129, 0.1);
+      }
+
+      &.decrease {
+        color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+      }
+
+      &.neutral {
+        color: #6b7280;
+        background: rgba(107, 114, 128, 0.1);
+      }
+    }
+  }
+
+  .metric-body {
+    .metric-title {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin: 0 0 0.5rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .metric-value {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+  }
+}

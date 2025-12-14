@@ -1,0 +1,38 @@
+<div class="dashboard">
+
+  @if (config$ | async; as config) {
+
+  <div class="dashboard-header">
+    <h1>{{ config.title }}</h1>
+    @if (config.description) {
+    <p>{{ config.description }}</p>
+    }
+  </div>
+
+  <div class="dashboard-content"
+    [style.grid-template-columns]="'repeat(' + (config.layout?.gridColumns || 4) + ', 1fr)'"
+    [style.gap]="config.layout?.gap || '1.5rem'">
+    @if (cards$ | async; as cards) {
+    @for (card of cards; track card.id) {
+    <div [style.grid-column]="getGridColumn(card)" class="card-wrapper">
+      @if (isMetricCard(card)) {
+      <app-metric-card [metric]="card.data" [styles]="card.styles"></app-metric-card>
+      } @else if (isChartCard(card)) {
+      <app-chart-card [title]="card.title" [chartData]="card.chartData" [chartType]="card.chartType || 'line'"
+        [styles]="card.styles"></app-chart-card>
+      } @else if (isTableCard(card)) {
+      <app-activity-table [activities]="card.data" [styles]="card.styles"></app-activity-table>
+      }
+    </div>
+    }
+    }
+  </div>
+
+  } @else {
+
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading dashboard data...</p>
+  </div>
+  }
+</div>

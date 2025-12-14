@@ -1,0 +1,40 @@
+<div class="activity-table" [ngStyle]="cardStyles()">
+  <div class="table-header">
+    <h3 [ngStyle]="titleStyles()">Recent Activity</h3>
+    <button class="view-all-btn">View All</button>
+  </div>
+  
+  <div class="table-content">
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>User</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (activity of activities; track activity.id) {
+          <tr>
+            <td>
+              <span class="activity-type">{{ activity.type }}</span>
+            </td>
+            <td>
+              <div class="activity-description">
+                <span class="material-icons {{ activity.status }}">{{ getStatusIcon(activity.status) }}</span>
+                <span>{{ activity.description }}</span>
+              </div>
+            </td>
+            <td>{{ activity.user }}</td>
+            <td>{{ formatTimeAgo(activity.timestamp) }}</td>
+            <td>
+              <span class="status-badge {{ activity.status }}">{{ activity.status }}</span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

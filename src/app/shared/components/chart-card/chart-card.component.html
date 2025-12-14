@@ -1,0 +1,17 @@
+<div class="chart-card" [ngStyle]="cardStyles()">
+  <div class="chart-header">
+    <h3 [ngStyle]="titleStyles()">{{ title }}</h3>
+    <div class="chart-legend">
+      @for (dataset of chartData.datasets; track dataset.label) {
+        <div class="legend-item">
+          <span class="legend-color" [style.background-color]="dataset.borderColor"></span>
+          <span class="legend-label">{{ dataset.label }}</span>
+        </div>
+      }
+    </div>
+  </div>
+  
+  <div class="chart-body">
+    <canvas [id]="canvasId()" width="600" height="300"></canvas>
+  </div>
+</div>

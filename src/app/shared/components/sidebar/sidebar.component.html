@@ -1,0 +1,33 @@
+<nav class="sidebar" [class.collapsed]="isCollapsed()">
+  <div class="sidebar-header">
+    <div class="logo" [class.collapsed]="isCollapsed()">
+      @if(!isCollapsed()) {
+      <span class="logo-icon">📊</span>
+      <span class="logo-text">Dashboard</span>
+      }
+    </div>
+
+    <button class="toggle-btn" (click)="toggleSidebar()" aria-label="Toggle sidebar">
+      <span class="material-icons">{{ isCollapsed() ? 'chevron_right' : 'chevron_left' }}</span>
+    </button>
+  </div>
+
+  <ul class="nav-list">
+    @for (item of navItems; track item.route) {
+    <li>
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="active"
+        [class.active]="isActive(item.route)"
+        class="nav-item"
+        [title]="item.label"
+      >
+        <span class="material-icons">{{ item.icon }}</span>
+        @if(!isCollapsed()) {
+        <span class="nav-label">{{ item.label }}</span>
+        }
+      </a>
+    </li>
+    }
+  </ul>
+</nav>
