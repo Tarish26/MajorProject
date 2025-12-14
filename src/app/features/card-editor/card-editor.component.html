@@ -1,0 +1,144 @@
+<div class="editor-container">
+  <header class="editor-header">
+    <h1>Card Style Editor</h1>
+    <p>Customize the look and feel of your dashboard cards</p>
+  </header>
+
+  <div class="editor-layout" [formGroup]="editorForm">
+    <!-- Sidebar: Controls -->
+    <aside class="editor-sidebar">
+      <div class="card-selection">
+        <label for="cardSelect">Select Card to Edit</label>
+        <select id="cardSelect" formControlName="cardId" class="form-select">
+          <option value="" disabled>Choose a card...</option>
+          <option *ngFor="let card of cards$ | async" [value]="card.id">
+            {{ getCardIcon(card.type) }} {{ card.title || card.id }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Type Specific Config -->
+      <ng-container *ngIf="selectedCard() as card">
+        <div class="config-section" formGroupName="config">
+          <h3>Configuration</h3>
+
+          <div class="form-group" *ngIf="card.type === 'metric'">
+            <label>Icon (Material Icon Name)</label>
+            <input type="text" formControlName="icon" placeholder="e.g. trending_up">
+          </div>
+
+          <div class="form-group" *ngIf="card.type === 'chart'">
+            <label>Chart Type</label>
+            <select formControlName="chartType">
+              <option value="line">Line Chart</option>
+              <option value="bar">Bar Chart</option>
+              <option value="pie">Pie Chart</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="style-controls" formGroupName="styles">
+          <!-- Section: Container -->
+          <div class="control-section">
+            <h3>Container</h3>
+
+            <div class="form-group">
+              <label>Background Color</label>
+              <div class="color-picker-wrapper">
+                <input type="color" formControlName="backgroundColor">
+                <input type="text" formControlName="backgroundColor" placeholder="#ffffff">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Border Radius</label>
+              <input type="text" formControlName="borderRadius" placeholder="e.g. 8px">
+            </div>
+
+            <div class="form-group">
+              <label>Box Shadow</label>
+              <input type="text" formControlName="boxShadow" placeholder="e.g. 0 2px 4px rgba(0,0,0,0.1)">
+            </div>
+          </div>
+
+          <!-- Section: Typography -->
+          <div class="control-section">
+            <h3>Typography</h3>
+
+            <div class="form-group">
+              <label>Font Family</label>
+              <input type="text" formControlName="fontFamily" placeholder="e.g. Inter, sans-serif">
+            </div>
+
+            <div class="form-group">
+              <label>Title Color</label>
+              <div class="color-picker-wrapper">
+                <input type="color" formControlName="titleFontColor">
+                <input type="text" formControlName="titleFontColor" placeholder="#333333">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Value Color (Metrics)</label>
+              <div class="color-picker-wrapper">
+                <input type="color" formControlName="valueFontColor">
+                <input type="text" formControlName="valueFontColor" placeholder="#000000">
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="editor-actions">
+            <button type="button" class="btn-secondary" (click)="resetStyles()">Reset</button>
+            <button type="button" class="btn-primary" (click)="saveStyles()">Save Changes</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="empty-state" *ngIf="!selectedCard()">
+        <p>Please select a card to start editing.</p>
+      </div>
+    </aside>
+
+    <!-- Main: Preview -->
+    <main class="editor-preview">
+      <div class="preview-header">
+        <h2>Live Preview</h2>
+        <span class="badge">Real-time</span>
+      </div>
+
+      <div class="preview-canvas">
+        <ng-container *ngIf="selectedCard() as card; else noSelection">
+          <!-- Dynamic Component based on type -->
+          <div class="preview-wrapper">
+            <!-- Metric Card Preview -->
+            <ng-container *ngIf="card.type === 'metric' && previewMetric()">
+              <app-metric-card [metric]="previewMetric()!" [styles]="currentStyles()">
+              </app-metric-card>
+            </ng-container>
+
+            <!-- Chart Card Preview -->
+            <ng-container *ngIf="card.type === 'chart' && card.chartData">
+              <app-chart-card [title]="card.title!" [chartData]="card.chartData" [chartType]="chartType()"
+                [styles]="currentStyles()">
+              </app-chart-card>
+            </ng-container>
+
+            <!-- Table Card Preview -->
+            <ng-container *ngIf="card.type === 'table' && card.data">
+              <app-activity-table [activities]="card.data" [styles]="currentStyles()">
+              </app-activity-table>
+            </ng-container>
+          </div>
+        </ng-container>
+
+        <ng-template #noSelection>
+          <div class="no-selection-placeholder">
+            <div class="placeholder-icon">👆</div>
+            <p>Select a card from the sidebar to see a preview here.</p>
+          </div>
+        </ng-template>
+      </div>
+    </main>
+  </div>
+</div>
