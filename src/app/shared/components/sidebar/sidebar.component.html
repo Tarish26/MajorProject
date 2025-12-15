@@ -1,4 +1,4 @@
-<nav class="sidebar" [class.collapsed]="isCollapsed()">
+<nav class="sidebar" [class.collapsed]="isCollapsed()" [class.mobile-open]="mobileOpen()">
   <div class="sidebar-header">
     <div class="logo" [class.collapsed]="isCollapsed()">
       @if(!isCollapsed()) {
@@ -15,13 +15,8 @@
   <ul class="nav-list">
     @for (item of navItems; track item.route) {
     <li>
-      <a
-        [routerLink]="item.route"
-        routerLinkActive="active"
-        [class.active]="isActive(item.route)"
-        class="nav-item"
-        [title]="item.label"
-      >
+      <a [routerLink]="item.route" routerLinkActive="active" [class.active]="isActive(item.route)" class="nav-item"
+        [title]="item.label">
         <span class="material-icons">{{ item.icon }}</span>
         @if(!isCollapsed()) {
         <span class="nav-label">{{ item.label }}</span>
@@ -31,3 +26,7 @@
     }
   </ul>
 </nav>
+
+@if (mobileOpen()) {
+<div class="sidebar-backdrop" (click)="closeMobile.emit()"></div>
+}

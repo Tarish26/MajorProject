@@ -9,10 +9,10 @@ export function getCardStyles(styles?: CardStyles): Record<string, string> {
 
   const styleObject: Record<string, string> = {};
 
-  // Helper to add important
+  // Helper to add property
   const add = (prop: string, value: string | undefined) => {
     if (value) {
-      styleObject[prop] = `${value} !important`;
+      styleObject[prop] = value;
     }
   };
 
@@ -49,7 +49,7 @@ export function getTitleStyles(styles?: CardStyles): Record<string, string> {
 
   const styleObject: Record<string, string> = {};
   const add = (prop: string, value: string | undefined) => {
-    if (value) styleObject[prop] = `${value} !important`;
+    if (value) styleObject[prop] = value;
   };
 
   add('font-size', styles.titleFontSize);
@@ -69,7 +69,7 @@ export function getValueStyles(styles?: CardStyles): Record<string, string> {
 
   const styleObject: Record<string, string> = {};
   const add = (prop: string, value: string | undefined) => {
-    if (value) styleObject[prop] = `${value} !important`;
+    if (value) styleObject[prop] = value;
   };
 
   add('font-size', styles.valueFontSize);
@@ -88,7 +88,7 @@ export function getLabelStyles(styles?: CardStyles): Record<string, string> {
 
   const styleObject: Record<string, string> = {};
   const add = (prop: string, value: string | undefined) => {
-    if (value) styleObject[prop] = `${value} !important`;
+    if (value) styleObject[prop] = value;
   };
 
   add('font-size', styles.labelFontSize);

@@ -1,4 +1,4 @@
-import { Component, model, signal } from '@angular/core'; // <-- CHANGED
+import { Component, model, signal, input, output } from '@angular/core'; // <-- CHANGED
 import { RouterModule, Router, NavigationEnd } from '@angular/router'; // <-- Added NavigationEnd
 import { filter } from 'rxjs/operators'; // <-- Added filter
 
@@ -18,7 +18,13 @@ interface NavItem {
 export class SidebarComponent {
   // Use model() for two-way state.
   // The parent can now bind with [(isCollapsed)]="parentSignal"
-  isCollapsed = model<boolean>(); // <-- CHANGED
+  // Use model() for two-way state.
+  // The parent can now bind with [(isCollapsed)]="parentSignal"
+  isCollapsed = model<boolean>();
+
+  // Mobile state
+  mobileOpen = input<boolean>();
+  closeMobile = output<void>();
 
   readonly navItems: NavItem[] = [
     { label: 'Dashboard', icon: 'dashboard', route: '/dashboard' },

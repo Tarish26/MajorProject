@@ -59,15 +59,25 @@ export class ChartCardComponent implements OnInit, OnChanges {
       const labels = this.chartData.labels;
       const maxValue = Math.max(...this.chartData.datasets.flatMap(d => d.data));
 
-      // Draw grid lines
+      // Draw grid lines and Y-axis labels
       ctx.strokeStyle = '#e5e7eb';
+      ctx.fillStyle = '#6b7280';
+      ctx.font = '10px sans-serif';
+      ctx.textAlign = 'right';
+      ctx.textBaseline = 'middle';
       ctx.lineWidth = 1;
+
       for (let i = 0; i <= 5; i++) {
         const y = padding + (chartHeight / 5) * i;
+        const value = Math.round(maxValue - (maxValue / 5) * i);
+
         ctx.beginPath();
         ctx.moveTo(padding, y);
         ctx.lineTo(width - padding, y);
         ctx.stroke();
+
+        // Draw Y-axis label
+        ctx.fillText(value.toString(), padding - 10, y);
       }
 
       // Draw datasets
@@ -82,11 +92,11 @@ export class ChartCardComponent implements OnInit, OnChanges {
           const barWidth = (chartWidth / labels.length) * 0.6;
           dataset.data.forEach((value, i) => {
             const x = padding + (chartWidth / labels.length) * i + (chartWidth / labels.length - barWidth) / 2;
-            const y = padding + chartHeight - (value / maxValue) * chartHeight;
-            const height = (value / maxValue) * chartHeight;
+            const barHeight = (value / maxValue) * chartHeight;
+            const y = padding + chartHeight - barHeight;
 
-            ctx.fillRect(x, y, barWidth, height);
-            ctx.strokeRect(x, y, barWidth, height);
+            ctx.fillRect(x, y, barWidth, barHeight);
+            ctx.strokeRect(x, y, barWidth, barHeight);
           });
         } else {
           // Line Chart (Default)
@@ -122,9 +132,18 @@ export class ChartCardComponent implements OnInit, OnChanges {
         }
       });
 
+      ctx.fillStyle = '#6b7280';
+      ctx.textAlign = 'center';
       labels.forEach((label, i) => {
         const x = padding + (chartWidth / (labels.length - 1)) * i;
-        ctx.fillText(label, x, height - padding + 20);
+        // Adjust x for bar chart centering if needed, but simple line logic usually ok for labels
+        // For bar chart, we might want to center on the bar interval
+        let labelX = x;
+        if (this.chartType === 'bar') {
+          labelX = padding + (chartWidth / labels.length) * i + (chartWidth / labels.length) / 2;
+        }
+
+        ctx.fillText(label, labelX, height - padding + 20);
       });
     }, 100);
   }

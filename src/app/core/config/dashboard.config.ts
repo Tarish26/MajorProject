@@ -22,7 +22,7 @@ export const defaultDashboardConfig: DashboardConfig = {
         icon: 'people',
         color: '#3b82f6'
       },
-    
+
     },
     {
       id: 'metric-revenue',
@@ -37,7 +37,7 @@ export const defaultDashboardConfig: DashboardConfig = {
         icon: 'attach_money',
         color: '#10b981'
       },
-  
+
     },
     {
       id: 'metric-orders',
@@ -52,19 +52,19 @@ export const defaultDashboardConfig: DashboardConfig = {
         icon: 'shopping_cart',
         color: '#f59e0b'
       },
-  
+
     },
     {
-      id: 'metric-conversion-rate',
+      id: 'metric-products',
       type: 'metric',
       order: 4,
       data: {
         id: '4',
-        title: 'Conversion Rate',
-        value: '2.4%',
-        change: 0.5,
+        title: 'Total Products',
+        value: '1,240',
+        change: 15.3,
         changeType: 'increase',
-        icon: 'trending_up',
+        icon: 'inventory_2',
         color: '#8b5cf6'
       }
     },
@@ -73,17 +73,11 @@ export const defaultDashboardConfig: DashboardConfig = {
       id: 'chart-sales-revenue',
       type: 'chart',
       order: 5,
-      title: 'Sales & Revenue',
-      gridColumn: 'span 4',
+      title: 'Revenue Analytics',
+      gridColumn: 'span 2',
       chartData: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [
-          {
-            label: 'Sales',
-            data: [65, 78, 90, 81, 95, 105],
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            borderColor: 'rgba(59, 130, 246, 1)'
-          },
           {
             label: 'Revenue',
             data: [45, 62, 75, 68, 82, 92],
@@ -92,16 +86,54 @@ export const defaultDashboardConfig: DashboardConfig = {
           }
         ]
       },
-     
+      chartType: 'line'
+    },
+    {
+      id: 'chart-user-growth',
+      type: 'chart',
+      order: 6,
+      title: 'User Growth',
+      gridColumn: 'span 2',
+      chartData: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+          {
+            label: 'Active Users',
+            data: [1000, 1050, 1120, 1180, 1200, 1248],
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            borderColor: 'rgba(59, 130, 246, 1)'
+          }
+        ]
+      },
+      chartType: 'line'
+    },
+    {
+      id: 'chart-product-performance',
+      type: 'chart',
+      order: 7,
+      title: 'Top Product Sales',
+      gridColumn: 'span 4',
+      chartData: {
+        labels: ['Electronics', 'Clothing', 'Home', 'Books', 'Sports'],
+        datasets: [
+          {
+            label: 'Sales',
+            data: [350, 420, 210, 150, 180],
+            backgroundColor: 'rgba(245, 158, 11, 0.6)',
+            borderColor: 'rgba(245, 158, 11, 1)'
+          }
+        ]
+      },
+      chartType: 'bar'
     },
     // Table Card
     {
       id: 'table-recent-activity',
       type: 'table',
-      order: 6,
+      order: 8,
       title: 'Recent Activity',
       gridColumn: 'span 4',
-     
+
       data: [
         {
           id: '1',

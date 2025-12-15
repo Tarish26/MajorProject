@@ -26,6 +26,28 @@
   }
 
   .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .hamburger-btn {
+      display: none; // Hidden on desktop
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+
+      .material-icons {
+        font-size: 24px;
+      }
+
+      &:hover {
+        background: var(--bg-primary);
+      }
+    }
+
     .page-title {
       font-size: 1.5rem;
       font-weight: 600;
@@ -104,23 +126,23 @@
   .notifications {
     position: relative;
 
-      .icon-btn {
-        background: transparent;
-        border: none;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-secondary);
-        transition: all 0.2s, background-color 0.3s ease, color 0.3s ease;
-        position: relative;
+    .icon-btn {
+      background: transparent;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all 0.2s, background-color 0.3s ease, color 0.3s ease;
+      position: relative;
 
-        &:hover {
-          background: var(--bg-primary);
-          color: var(--text-primary);
-        }
+      &:hover {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+      }
 
       .material-icons {
         font-size: 24px;
@@ -145,47 +167,47 @@
   .user-menu {
     position: relative;
 
-      .user-btn {
+    .user-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s, background-color 0.3s ease, border-color 0.3s ease;
+
+      &:hover {
+        background: var(--bg-primary);
+      }
+
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        background: transparent;
-        border: 1px solid var(--border-color);
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        transition: all 0.2s, background-color 0.3s ease, border-color 0.3s ease;
-
-        &:hover {
-          background: var(--bg-primary);
-        }
-
-        .user-avatar {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 600;
-          font-size: 0.875rem;
-        }
-
-        .user-name {
-          font-size: 0.875rem;
-          font-weight: 500;
-          color: var(--text-primary);
-          transition: color 0.3s ease;
-        }
-
-        .material-icons {
-          font-size: 20px;
-          color: var(--text-secondary);
-          transition: transform 0.2s, color 0.3s ease;
-        }
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.875rem;
       }
+
+      .user-name {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        transition: color 0.3s ease;
+      }
+
+      .material-icons {
+        font-size: 20px;
+        color: var(--text-secondary);
+        transition: transform 0.2s, color 0.3s ease;
+      }
+    }
 
     &.open {
       .user-btn .material-icons {
@@ -244,7 +266,18 @@
 
 @media (max-width: 768px) {
   .header {
-    left: 80px;
+    left: 0 !important; // Full width header on mobile
+    padding: 0 1rem;
+
+    &.collapsed {
+      left: 0 !important;
+    }
+
+    .header-left {
+      .hamburger-btn {
+        display: flex; // Show on mobile
+      }
+    }
 
     .search-box {
       display: none;

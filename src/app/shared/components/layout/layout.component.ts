@@ -13,4 +13,9 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class LayoutComponent {
   isSidebarCollapsed = false;
+  isMobileMenuOpen = false;
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
 }

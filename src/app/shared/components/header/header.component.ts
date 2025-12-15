@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { User } from '../../../core/models/dashboard.models';
 })
 export class HeaderComponent {
   isCollapsed1 = input<boolean>();
+  toggleMobileNav = output<void>();
   readonly isMenuOpen = new BehaviorSubject<boolean>(false);
   readonly user$: Observable<User>;
   readonly pageTitle = new BehaviorSubject<string>('Dashboard');

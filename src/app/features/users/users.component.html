@@ -1,0 +1,29 @@
+<div class="dashboard">
+    <header class="dashboard-header" *ngIf="config$ | async as config">
+        <h1>{{ config.title }}</h1>
+        <p *ngIf="config.description">{{ config.description }}</p>
+    </header>
+
+    <ng-container *ngIf="config$ | async as config">
+        <div class="dashboard-content" [style.grid-template-columns]="'repeat(auto-fit, minmax(250px, 1fr))'"
+            [style.gap]="config.layout?.gap || '1.5rem'">
+
+            <ng-container *ngIf="cards$ | async as cards">
+                <ng-container *ngFor="let card of cards">
+                    <div class="card-wrapper" [style.grid-column]="getGridColumn(card)">
+
+                        <app-metric-card *ngIf="isMetricCard(card)" [metric]="card.data"
+                            [styles]="card.styles"></app-metric-card>
+
+                        <app-chart-card *ngIf="isChartCard(card)" [title]="card.title" [chartData]="card.chartData"
+                            [chartType]="card.chartType!" [styles]="card.styles"></app-chart-card>
+
+                        <app-activity-table *ngIf="isTableCard(card)" [activities]="card.data"
+                            [styles]="card.styles"></app-activity-table>
+
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>

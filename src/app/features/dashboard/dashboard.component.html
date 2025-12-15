@@ -9,8 +9,7 @@
     }
   </div>
 
-  <div class="dashboard-content"
-    [style.grid-template-columns]="'repeat(' + (config.layout?.gridColumns || 4) + ', 1fr)'"
+  <div class="dashboard-content" [style.grid-template-columns]="'repeat(auto-fit, minmax(250px, 1fr))'"
     [style.gap]="config.layout?.gap || '1.5rem'">
     @if (cards$ | async; as cards) {
     @for (card of cards; track card.id) {

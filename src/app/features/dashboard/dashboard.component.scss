@@ -50,7 +50,7 @@
 
     .card-wrapper {
       min-width: 0; // Prevent grid overflow
-      
+
       // Ensure full width for span cards
       &[style*="span 4"] {
         width: 100%;
@@ -65,6 +65,31 @@
   }
 }
 
+@media (max-width: 1200px) {
+  .dashboard {
+    .dashboard-content {
+      // Force 2 columns on tablet/small laptop
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 1rem !important;
+
+      .card-wrapper {
+
+        // Reset spans >= 2 to span 2 (full width of tablet)
+        // Keep span 1 as span 1
+        &[style*="span 4"] {
+          grid-column: span 2 !important;
+        }
+
+        // Charts usually span 2 in desktop (half). In 2-col tablet, they should span 2 (full)
+        // or span 1 (half). Let's span 2 for better visibility.
+        &[style*="span 2"] {
+          grid-column: span 2 !important;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .dashboard {
     .dashboard-header {
@@ -75,8 +100,9 @@
 
     .dashboard-content {
       grid-template-columns: 1fr !important;
-      
+
       .card-wrapper {
+        // Everything full width on mobile
         grid-column: span 1 !important;
       }
     }

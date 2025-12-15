@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
@@ -19,7 +20,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.user$ = this.authService.user$;
     this.profileForm = this.fb.group({
@@ -49,5 +51,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.authService.updateUser(this.profileForm.value);
       console.log('Profile updated:', this.profileForm.value);
     }
+  }
+
+  cancel(): void {
+    this.router.navigate(['/']);
   }
 }

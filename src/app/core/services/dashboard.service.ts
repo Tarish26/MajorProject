@@ -3,6 +3,10 @@ import { Observable, of, delay, BehaviorSubject, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DashboardConfig, CardConfig, Metric, ChartData, Activity } from '../models/dashboard.models';
 import { defaultDashboardConfig } from '../config/dashboard.config';
+import { analyticsConfig } from '../config/analytics.config';
+import { usersConfig } from '../config/users.config';
+import { productsConfig } from '../config/products.config';
+import { ordersConfig } from '../config/orders.config';
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +27,32 @@ export class DashboardService {
   );
 
   /**
-   * Get the full dashboard configuration
+   * Get the dashboard configuration
    */
-  getConfig(): Observable<DashboardConfig> {
-    // Check if we already have data to avoid resetting state
-    const current = this.configSubject.getValue();
-    if (current) {
-      return of(current);
+  getConfig(type: 'dashboard' | 'analytics' | 'users' | 'products' | 'orders' = 'dashboard'): Observable<DashboardConfig> {
+    // Determine which config to load
+    let configToLoad: DashboardConfig;
+    switch (type) {
+      case 'analytics':
+        configToLoad = analyticsConfig;
+        break;
+      case 'users':
+        configToLoad = usersConfig;
+        break;
+      case 'products':
+        configToLoad = productsConfig;
+        break;
+      case 'orders':
+        configToLoad = ordersConfig;
+        break;
+      default:
+        configToLoad = defaultDashboardConfig;
+        break;
     }
 
     // Simulate a real API call that returns data
-    return of(defaultDashboardConfig).pipe(
-      delay(1000), // Wait 1 second
+    return of(configToLoad).pipe(
+      delay(500), // Wait 0.5 second
       // Use tap() to update the subject when the data "arrives"
       tap(config => {
         this.configSubject.next(config);

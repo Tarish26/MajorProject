@@ -127,10 +127,45 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 80px;
+    width: 260px; // Full width sidebar on mobile
+    transform: translateX(-100%); // Hidden by default
+    transition: transform 0.3s ease;
+    box-shadow: none; // Shadow handled by backdrop
 
     &.collapsed {
-      width: 80px;
+      width: 260px; // Override collapsed width logic on mobile
     }
+
+    &.mobile-open {
+      transform: translateX(0); // Visible
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    }
+
+    // Hide toggle button on mobile since we have hamburger
+    .toggle-btn {
+      display: none;
+    }
+  }
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999; // Below sidebar (1000) but above everything else
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

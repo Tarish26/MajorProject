@@ -19,29 +19,29 @@ export const routes: Routes = [
         path: 'settings',
         loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent)
       },
-       {
-         path: 'card-editor',
-         loadComponent: () => import('./features/card-editor/card-editor.component').then(m => m.CardEditorComponent)
-       },
+      {
+        path: 'card-editor',
+        loadComponent: () => import('./features/card-editor/card-editor.component').then(m => m.CardEditorComponent)
+      },
       {
         path: 'profile',
         loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent)
       },
       {
         path: 'analytics',
-        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/analytics/analytics.component').then(m => m.AnalyticsComponent)
       },
       {
         path: 'users',
-        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/users/users.component').then(m => m.UsersComponent)
       },
       {
         path: 'orders',
-        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/orders/orders.component').then(m => m.OrdersComponent)
       },
       {
         path: 'products',
-        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/products/products.component').then(m => m.ProductsComponent)
       }
     ]
   }

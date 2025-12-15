@@ -1,7 +1,8 @@
 <div class="layout">
-  <app-sidebar [(isCollapsed)]="isSidebarCollapsed"></app-sidebar>
+  <app-sidebar [(isCollapsed)]="isSidebarCollapsed" [mobileOpen]="isMobileMenuOpen"
+    (closeMobile)="isMobileMenuOpen = false"></app-sidebar>
   <div class="main-content" [class.collapsed]="isSidebarCollapsed">
-    <app-header [isCollapsed1]="isSidebarCollapsed"></app-header>
+    <app-header [isCollapsed1]="isSidebarCollapsed" (toggleMobileNav)="toggleMobileMenu()"></app-header>
     <main class="content-area">
       <router-outlet></router-outlet>
     </main>

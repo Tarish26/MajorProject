@@ -37,11 +37,11 @@ export class CardEditorComponent implements OnInit, OnDestroy {
     this.cards$ = this.dashboardService.cards$;
 
     this.editorForm = this.fb.group({
+      featureType: ['dashboard'],
       cardId: [''],
       // Data-specific config
       config: this.fb.group({
         icon: [''], // For Metric
-        chartType: ['line'], // For Chart
         legendPosition: ['top'] // For Chart
       }),
       styles: this.fb.group({
@@ -85,7 +85,9 @@ export class CardEditorComponent implements OnInit, OnDestroy {
     );
 
     this.chartType = computed(() => {
-      const type = configSignal()?.chartType;
+      // Use the original card's chart type since we don't edit it anymore
+      const card = this.selectedCard();
+      const type = (card as any)?.chartType;
       return (['line', 'bar', 'pie'].includes(type) ? type : 'line') as 'line' | 'bar' | 'pie';
     });
 
@@ -101,8 +103,16 @@ export class CardEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Ensure data is loaded
-    this.dashboardService.getConfig().pipe(take(1)).subscribe();
+    // Handle Feature Type Selection
+    this.editorForm.get('featureType')?.valueChanges.pipe(
+      startWith('dashboard'), // Initial load
+      takeUntil(this.destroy$)
+    ).subscribe(type => {
+      // Load the selected config
+      this.dashboardService.getConfig(type as any).pipe(take(1)).subscribe();
+      // Reset card selection when switching features
+      this.editorForm.patchValue({ cardId: '' }, { emitEvent: true });
+    });
 
     // Handle Card Selection
     this.editorForm.get('cardId')?.valueChanges.pipe(
@@ -121,20 +131,24 @@ export class CardEditorComponent implements OnInit, OnDestroy {
     this.cards$.pipe(
       takeUntil(this.destroy$)
     ).subscribe(cards => {
-      // 1. Auto-select if nothing selected
-      if (!this.editorForm.get('cardId')?.value && cards.length > 0) {
-        this.editorForm.patchValue({ cardId: cards[0].id });
+      // 1. Auto-select if nothing selected (optional, maybe distracting if switching features often)
+      // Actually, let's only auto-select if the user hasn't explicitly selected '' (which we do on feature switch)
+      // But typically we want to show *something*.
+      const currentId = this.editorForm.get('cardId')?.value;
+
+      if (!currentId && cards.length > 0) {
+        // Use setTimeout to avoid ExpressionChangedAfterItHasBeenCheckedError if this happens during init
+        setTimeout(() => {
+          this.editorForm.patchValue({ cardId: cards[0].id });
+        });
       }
 
       // 2. Refresh selected card reference if it exists
-      const currentId = this.editorForm.get('cardId')?.value;
       if (currentId) {
         const updatedCard = cards.find(c => c.id === currentId);
         if (updatedCard) {
           const wasNull = !this.selectedCard();
           this.selectedCard.set(updatedCard);
-          // Only reload form if we were previously null (initial load)
-          // Otherwise avoid overwriting unsaved form changes while typing
           if (wasNull) {
             this.loadCardStyles(currentId);
           }
@@ -162,7 +176,6 @@ export class CardEditorComponent implements OnInit, OnDestroy {
         if (card.type === 'metric') {
           configValues.icon = card.data?.icon || '';
         } else if (card.type === 'chart') {
-          configValues.chartType = card.chartType || 'line';
           configValues.legendPosition = card.legendPosition || 'top';
         }
 
@@ -205,7 +218,6 @@ export class CardEditorComponent implements OnInit, OnDestroy {
     } else if (card.type === 'chart') {
       const chartCard = card as ChartCardConfig;
       const chartUpdates = updates as Partial<ChartCardConfig>;
-      if (configValues.chartType) chartUpdates.chartType = configValues.chartType;
       if (configValues.legendPosition) chartUpdates.legendPosition = configValues.legendPosition;
     }
 
