@@ -46,7 +46,16 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<void> {
     try {
-      await signInWithEmailAndPassword(this.auth, email, password);
+      const credential = await signInWithEmailAndPassword(this.auth, email, password);
+      if (credential.user) {
+        this.currentUserSubject.next({
+          id: credential.user.uid,
+          name: credential.user.displayName || 'User',
+          email: credential.user.email || '',
+          avatar: credential.user.photoURL || undefined,
+          role: 'Admin'
+        });
+      }
       this.router.navigate(['/dashboard']);
     } catch (error) {
       console.error('Login error:', error);
@@ -56,7 +65,16 @@ export class AuthService {
 
   async signup(email: string, password: string): Promise<void> {
     try {
-      await createUserWithEmailAndPassword(this.auth, email, password);
+      const credential = await createUserWithEmailAndPassword(this.auth, email, password);
+      if (credential.user) {
+        this.currentUserSubject.next({
+          id: credential.user.uid,
+          name: credential.user.displayName || 'User',
+          email: credential.user.email || '',
+          avatar: credential.user.photoURL || undefined,
+          role: 'Admin'
+        });
+      }
       this.router.navigate(['/dashboard']);
     } catch (error) {
       console.error('Signup error:', error);
