@@ -26,6 +26,12 @@ export class AuthService {
           avatar: firebaseUser.photoURL || undefined,
           role: 'Admin' // Default role for now
         });
+        
+        // If they become logged in (e.g. from another tab) while sitting on an auth page
+        const currentUrl = this.router.url;
+        if (currentUrl.includes('/login') || currentUrl.includes('/signup') || currentUrl.includes('/forgot-password')) {
+          this.router.navigate(['/dashboard']);
+        }
       } else {
         this.currentUserSubject.next(null);
         // If they were previously logged in and state becomes null (e.g. logout from another tab)
