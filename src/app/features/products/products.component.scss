@@ -1,9 +1,11 @@
 .dashboard {
     max-width: 1400px;
     margin: 0 auto;
+    animation: fadeIn 0.5s ease-out;
 
     .dashboard-header {
         margin-bottom: 2rem;
+        animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
         h1 {
             font-size: 2rem;
@@ -50,6 +52,15 @@
 
         .card-wrapper {
             min-width: 0; // Prevent grid overflow
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            &:hover {
+                transform: translateY(-8px) scale(1.01);
+                z-index: 10;
+                ::ng-deep > * {
+                    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+                }
+            }
 
             // Ensure full width for span cards
             &[style*="span 4"] {
@@ -62,6 +73,28 @@
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 

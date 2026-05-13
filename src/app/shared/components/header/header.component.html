@@ -14,11 +14,24 @@
       </div>
 
 
-      <button class="theme-toggle" (click)="toggleDarkMode()"
+      <button class="theme-toggle icon-btn" (click)="toggleDarkMode()"
         [title]="isDarkMode$ ? 'Switch to Light Mode' : 'Switch to Dark Mode'" aria-label="Toggle theme">
         <span class="material-icons">{{ isDarkMode$ ? 'light_mode' : 'dark_mode' }}</span>
       </button>
 
+      <button class="icon-btn" (click)="toggleFullscreen()" [title]="isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'"
+        aria-label="Toggle fullscreen">
+        <span class="material-icons">{{ isFullscreen ? 'fullscreen_exit' : 'fullscreen' }}</span>
+      </button>
+
+      <button class="icon-btn" (click)="exportConfig()" title="Export Configuration" aria-label="Export config">
+        <span class="material-icons">download</span>
+      </button>
+
+      <button class="icon-btn" (click)="fileInput.click()" title="Import Configuration" aria-label="Import config">
+        <span class="material-icons">upload</span>
+      </button>
+      <input type="file" #fileInput accept=".json" (change)="importConfig($event)" style="display: none;">
 
       <div class="notifications">
         <button class="icon-btn" aria-label="Notifications">

@@ -1,0 +1,81 @@
+Slide: ppt/slides/slide1.xml
+Config Driven Dashboard Major Project - II (18B19CI891) | AY 2025-26 Mid-Term Evaluation |March 2026. Group No.: IG02 Team Member (s) Tarish Sharma(221030011) Supervisor Name: Mr. Akshay Kumar Designation: Assistant Professor (Grade 1) Jaypee University of Information Technology Department of Computer Science and Engineering and Information Technology
+------------------------
+Slide: ppt/slides/slide2.xml
+Outline Introduction Problem Statement Objectives Literature Review Project Design Tools, Technologies and Languages Dataset Implementation (if any) Results (if any) Key Learnings Work Plan till End-Term Evaluation Project Plan Work Contribution and Attendance Supervisor Interactions References
+------------------------
+Slide: ppt/slides/slide3.xml
+Introduction Modern web applications often require frequent UI updates to accommodate new data sources, KPIs, or features. However, hard-coding these changes increases development time and reduces flexibility. A  config-driven dashboard  allows developers or administrators to control what data, layout, and components appear on the dashboard through a simple configuration file (e.g., JSON), without altering the source code. This project aims to design and develop a  Config-Driven Dashboard  that dynamically renders cards, charts, and tables based on configuration files. It enables easy customization, modularity, and scalability - ideal for analytics and administrative use cases.
+------------------------
+Slide: ppt/slides/slide4.xml
+Problem Statement In traditional frontend applications, updating UI elements (like adding charts or rearranging components) requires manual code modifications. This leads to: Increased development and deployment time. High maintenance cost for minor UI changes. Poor scalability when dashboards must vary for multiple users or departments. Hence, there is a need for a  config-driven system  where UI layouts and data sources can be easily managed through configuration files rather than code changes.
+------------------------
+Slide: ppt/slides/slide5.xml
+Objectives To develop a  dynamic, configurable dashboard  using modern frontend technologies. To design a  JSON-based configuration model  that controls layout, components, and data sources.
+------------------------
+Slide: ppt/slides/slide6.xml
+Literature Review S. No. Author &amp;  Paper Title  [Citation] Journal/ Conference (Year) Tools/ Techniques/ Dataset Key Findings/ Results Limitations/ Gaps Identified 1. MDN Web Docs [MDN][1] Foundational Web Documentation (2005) HTML, CSS, JavaScript Standards Provides comprehensive, up-to-date documentation for web technologies, enabling rapid development. Depth can be overwhelming for absolute beginners; community maintenance introduces potential for minor inconsistencies. 2. Angular Framework Documentation [Angular][2] Official Project Documentation (2016) TypeScript, Angular CLI, RxJS Offers authoritative guidance on framework usage, architecture, and core concepts. Primarily focused on the framework; assumes familiarity with underlying web technologies (TS, JS). 3. The Official Angular Style Guide [Style][3] Community Best Practices (2016) TypeScript, Component Architecture, Naming Conventions Establishes a consistent, maintainable code base; improves team onboarding and code review efficiency. Subjective compliance across large teams; guide is opinionated and may not suit all project requirements. 4. Pro Angular [Freeman][4] Apress / Technical Publication (2017) Real-world examples, advanced features (e.g., Universal, PWA) Provides a structured, in-depth learning path from beginner to advanced topics; reinforces practical application. Requires periodic updates to keep pace with rapid Angular releases; cost barrier for access.
+------------------------
+Slide: ppt/slides/slide7.xml
+Literature Review 5. Articles on Usability and UX [NNG][5] NN/g Research Publications (1998) Heuristic evaluation, A/B testing, user studies Delivers evidence-based best practices for designing highly usable and accessible web applications. Findings are general design principles and require interpretation for specific technical implementations. 6. RxJS Documentation [RxJS][6] Official Project Documentation (2012) Observables, Operators (e.g., map, filter, switchMap) Clear explanation of reactive programming concepts in JavaScript; crucial for state management and async operations. Steep learning curve due to paradigm shift (imperative to reactive); over-reliance on complex operators reduces readability. 7. NgRx: Reactive State for Angular [NgRx][7] Official Project Documentation (2016) Redux Pattern, Store, Effects, Selectors Enables predictable, centralized state management for complex applications; facilitates time-travel debugging. Introduces significant boilerplate code (though reduced in newer versions); complexity often unnecessary for small apps. 8. TypeScript Handbook [TypeScript][8] Microsoft Documentation (2012) Static Typing, Interfaces, Generics, Decorators drastic reduction in runtime errors; improves code refactoring, autocompletion, and scalability in large teams. Requires a compilation step; creates a learning curve for developers accustomed to dynamic typing in JavaScript.
+------------------------
+Slide: ppt/slides/slide8.xml
+Literature Review 9. Web Vitals [Google][9] Google Search Central (2020) LCP, INP, CLS, Lighthouse Performance Audits Provides quantifiable, unified metrics (Core Web Vitals) to measure and optimize real-world user experience and SEO. Metrics can fluctuate based on user device/network; "gaming" metrics does not always equate to better perceived UX. 10. Comparative Analysis of Angular, React, &amp; Vue.js [IJISRT][10] Int. Journal of Innovative Science (2024) Framework Benchmarking, DOM Manipulation Tests Identifies Angular as superior for large-scale enterprise systems due to strict structure, while React excels in flexibility. Relies on synthetic benchmarks which may not perfectly reflect the performance nuances of complex, real-world scenarios.
+------------------------
+Slide: ppt/slides/slide9.xml
+Work Done Advanced Feature Implementation Real-Time Card Editor : Developed the live WYSIWYG editor usingÿ Angular Signals , allowing users to modify JSON configs and see instant updates without refreshing. Reactivity System Upgrade : Refactoredÿ DashboardService ÿto fully leverageÿ RxJS   BehaviorSubjects ÿcombined with Signals, ensuring fine-grained, tear-free updates. Performance &amp; Optimization Layout Engine Refinement : Finalized the responsive grid logic (handlingÿgrid-columnÿspans dynamically) to support complex, multi-card dashboard layouts. Quality Assurance &amp; Finalization UI Polish : Standardized all CSS variables for consistent theming (Dark/Light mode  readiness).
+------------------------
+Slide: ppt/slides/slide10.xml
+Key Design Decisions: Config-Driven UI:  The entire dashboard layout and content are defined by a JSON configuration object ( DashboardConfig ), enabling dynamic rendering without code changes. Separation of Concerns:  Decouples the Definition (Config) from the Presentation (Components), allowing runtime flexibility. Scalable Component Factory:  A central  DashboardComponent  iterates over the config and dynamically hosts specific card types (Metric, Chart, Table). Figure 1: System Architecture Diagram Project Design  (cont.)
+------------------------
+Slide: ppt/slides/slide11.xml
+Data Flow Logic: Single Source of Truth : Theÿ DashboardService ÿholds the state in aÿ BehaviorSubject , ensuring all components see consistent data. Reactive Updates : Dashboard View : Subscribes toÿconfig$ÿobservable to render the layout. Card Editor : Usesÿ Angular Signals ÿ( toSignal ,ÿcomputed) to derive instant preview states from form inputs. Immutable Actions : Updates are processed via pure functions in the service, emitting new state references to trigger change detection only when necessary. Figure 2: Data Flow Diagram Figure 1: System Architecture Diagram Project Design  (cont.)
+------------------------
+Slide: ppt/slides/slide12.xml
+Project Design  (cont.) Module Interactions: Core Module : Contains singleton services ( DashboardService ) and data models ( DashboardConfig ). Loaded once at app startup. Features Modules : DashboardModule : Consumes config to render the view. CardEditorModule : Consumes config to provide editing capabilities. Shared Module : Provides reusable UI atoms (Buttons, Inputs) and Pipes (Formatters) to both feature modules, ensuring visual consistency. Key Algorithm: Dynamic Style Injection Sanitization : Theÿ CardStyles ÿinterface acts as an allowlist. Application : Styles are applied via  Angular's ÿ[style]ÿbinding (e.g.,ÿ[ style.gridColumn ]), preventing XSS risks while allowing user customization.
+------------------------
+Slide: ppt/slides/slide13.xml
+Primary Frameworks &amp; Languages: Angular v20.1.0 : The core framework used for component-based architecture and dependency injection. TypeScript v5.8.2 : The primary programming language, ensuring type safety and modern ECMAScript features. RxJS  v7.8.0 : Reactive Extensions library used for handling asynchronous data streams (Observables). Zone.js v0.15.0 : Handles change detection and execution context. Runtime Environment: Node.js v22.15.1 : The JavaScript runtime used for the development server and build process. Figure 3 Tech Stack Diagram Tools, Technologies and Languages
+------------------------
+Slide: ppt/slides/slide14.xml
+Tools, Technologies and Languages (cont.) Build &amp; Package Management: Angular CLI v20.1.3 : The command-line interface for scaffolding, building, and serving the application. NPM v10.9.2 : The package manager used for dependency resolution. Figure 4 Dev Tools
+------------------------
+Slide: ppt/slides/slide15.xml
+Dataset Data Source Logic: JSON as Dataset : The application state acts as its own dataset, defined in a hierarchical JSON structure (         dashboard.config.ts ). Schema Definitions: Metrics :ÿ{ id, value, change, icon }ÿ- Drives the KPI cards. Charts :ÿ{ labels[], datasets[] }ÿ- Compatible with Chart.js inputs. Logs :ÿ{ timestamp, user, action }ÿ- Simulates an audit trail. Figure 5 Configuration Sample
+------------------------
+Slide: ppt/slides/slide16.xml
+Implementation (if any) Core Dashboard Engine Dynamic Rendering Strategy : Implemented withÿ ngSwitch  &amp; Directive Composition ÿfor scalable card types. Eliminates hardcoded templates, allowing runtime layout generation. Configuration Parser : Typed JSON Interfaces ÿensure runtime safety against malformed config. Acts as the central schema definition for the entire application. Figure 6 Dashboard App
+------------------------
+Slide: ppt/slides/slide17.xml
+Implementation  (if any) Figure 7 Layout Calculation &amp; Drawing
+------------------------
+Slide: ppt/slides/slide18.xml
+Experimental Results (if any) Key Outcomes Dynamic Rendering Engine : Successfully rendered mixed card types (Metrics, Charts, Tables) from a single JSON  source. Performance Benchmarks : Change Detection Reduction : Fewer cycles compared to Zone.js-only approach. Figure 7 Dashboard
+------------------------
+Slide: ppt/slides/slide19.xml
+Experimental Results (if any) Figure 8 Setting
+------------------------
+Slide: ppt/slides/slide20.xml
+Experimental Results (if any) Figure 9 Card Editor
+------------------------
+Slide: ppt/slides/slide21.xml
+Key Learnings Technical Mastery Advanced Angular Architecture : Deep dive intoÿ Standalone Components ,ÿ Signals , andÿ Dynamic Component Loading ÿ( ngSwitch / ViewContainerRef ). Reactive Programming : Masteredÿ RxJS ÿpatterns for complex state management and async data streams (Subject,  BehaviorSubject , heavy use of operators). Modern CSS : Leveragedÿ CSS Variables ÿandÿ Grid/Flexbox ÿfor a robust, theme-able layout engine. Methodologies Configuration-Driven Development : Learned to decouple "What to render" (Data) from "How to render" (Component), improving scalability. Performance-First Mindset : Prioritized runtime performance usingÿ OnPush ÿchange detection and Signals to minimize rendering cost. Blogs and Articles Referred: Angular Official Documentation : Interactive guide on Signals and standalone components.
+------------------------
+Slide: ppt/slides/slide22.xml
+Project Plan
+------------------------
+Slide: ppt/slides/slide23.xml
+Work Contribution and Attendance GitHub Repository URL:  Team Member Roll No. Work Done (provide complete details) Work Contribution (%) Lines of Code (if any) Lab Attendance (%) 1. 221030011 100 1000+
+------------------------
+Slide: ppt/slides/slide24.xml
+Supervisor  Interactions  (as mentioned in weekly log) No. of Meetings with Supervisor:  Week No. Duration Remarks ( as mentioned in the weekly log ) Incorporated (Yes/No) 1. 19/09/2025 Major Project initial meet Brief on what to do Yes 2. 03/10/2025 Discussed about mid semester evaluation To show Literature review in the meet To tell about work done on internship related to project Yes 3. 27/10/2025 Maintain a combined weekly log and share it with the supervisor Weekly progress checked Directed to start building for end term evaluations Yes 4. 03/11/2025 Weekly work reviewed Yes 5. 11/11/2025 Weekly work reviewed Yes
+------------------------
+Slide: ppt/slides/slide25.xml
+Supervisor  Interactions   (cont.) Week No. Duration Remarks ( as mentioned in the weekly log ) Incorporated (Yes/No) 6. 19/11/2025 Weekly work reviewed Yes 7. 26/11/2025 Weekly work reviewed Yes 8. dd/mm/2025  to dd/mm/2025 Remark 1 Remark 2 Remark 3 9. dd/mm/2025  to dd/mm/2025 Remark 1 Remark 2 Remark 3 10. dd/mm/2025  to dd/mm/2025 Remark 1 Remark 2 Remark 3
+------------------------
+Slide: ppt/slides/slide26.xml
+References [1] MDN Web Docs, "Web technology for developers," 2005-Present. [Online]. Available:  https://developer.mozilla.org/en-US/ [2] Angular Team at Google, "Official Angular Documentation," 2016-Present. [Online]. Available:  https://angular.dev/ [3] Angular Team at Google, "Angular Style Guide," 2016-Present. [Online]. Available:  https://angular.dev/style-guide [4] A. Freeman, "Pro Angular,"  Apress , 2017. [Online]. Available:  https://www.apress.com/gp/book/9781484223062 [5] J. Nielsen and D. Norman, "NN/g Research Publications," 1998-Present. [Online]. Available:  https://www.nngroup.com/articles/ [6]  RxJS  Core Team, " RxJS  Official Documentation," 2012-Present. [Online]. Available:  https://rxjs.dev/guide/overview [7]  NgRx  Team, " NgRx : Reactive State for Angular," 2016-Present. [Online]. Available:  https://ngrx.io/docs [8] Microsoft, "TypeScript Handbook," 2012-Present. [Online]. Available:  https://www.typescriptlang.org/docs/ [9] Google Chrome Team, "Web Vitals," 2020-Present. [Online]. Available:  https://web.dev/articles/vitals [10] S. A. Kumar and R. S. Devi, "Comparative Analysis of Angular, React, and Vue.js,"  International Journal of Innovative Science and Research Technology , 2024. [Online]. Available:  https://ijisrt.com/
+------------------------
+Slide: ppt/slides/slide27.xml
+Thanks .
+------------------------

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -32,7 +32,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const userSub = this.user$.pipe(take(1)).subscribe(user => {
+    const userSub = this.user$.pipe(
+      filter(user => user !== undefined && user !== null),
+      take(1)
+    ).subscribe(user => {
       this.profileForm.patchValue({
         name: user.name,
         email: user.email,

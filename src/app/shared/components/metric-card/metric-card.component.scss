@@ -1,15 +1,40 @@
 .metric-card {
-  background-color: var(--bg-secondary);
+  background: var(--bg-secondary);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
-  transition: all 0.2s, background-color 0.3s ease, border-color 0.3s ease;
-  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-md);
   min-width: 250px;
+  position: relative;
+  overflow: hidden;
+
+  // Subtle gradient overlay for extra depth
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  >* {
+    position: relative;
+    z-index: 1;
+  }
 
   &:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--glow-shadow);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    transform: translateY(-4px);
+
+    .metric-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
+    }
   }
 
   .metric-header {
@@ -21,13 +46,16 @@
     .metric-icon {
       width: 48px;
       height: 48px;
-      border-radius: 0.5rem;
+      border-radius: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
 
       .material-icons {
         font-size: 24px;
+        color: white;
       }
     }
 
@@ -37,25 +65,26 @@
       gap: 0.25rem;
       font-size: 0.875rem;
       font-weight: 600;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.375rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      backdrop-filter: blur(4px);
 
       .material-icons {
         font-size: 16px;
       }
 
       &.increase {
-        color: #10b981;
-        background: rgba(16, 185, 129, 0.1);
+        color: #059669;
+        background: rgba(16, 185, 129, 0.15);
       }
 
       &.decrease {
-        color: #ef4444;
-        background: rgba(239, 68, 68, 0.1);
+        color: #dc2626;
+        background: rgba(239, 68, 68, 0.15);
       }
 
       &.neutral {
-        color: #6b7280;
+        color: #4b5563;
         background: rgba(107, 114, 128, 0.1);
       }
     }
@@ -63,19 +92,25 @@
 
   .metric-body {
     .metric-title {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
+      font-size: 0.95rem;
+      color: #6b7280;
       font-weight: 500;
       margin: 0 0 0.5rem 0;
-      transition: color 0.3s ease;
+      letter-spacing: 0.01em;
     }
 
     .metric-value {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: var(--text-primary);
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #1f2937;
       margin: 0;
-      transition: color 0.3s ease;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+
+      background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 }

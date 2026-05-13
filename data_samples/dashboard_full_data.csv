@@ -1,0 +1,27 @@
+Type,Id,Label,Value,Change,ChangeType,Date,Category,Description,Status,User
+Metric,metric-total-users,Total Users,15432,12.5,increase,,,,,
+Metric,metric-revenue,Revenue,124500,8.5,increase,,,,,
+Metric,metric-orders,Orders,3240,-2.1,decrease,,,,,
+Metric,metric-products,Total Products,540,5.0,increase,,,,,
+Chart,chart-sales-revenue,Jan,8500,,,,,,
+Chart,chart-sales-revenue,Feb,9200,,,,,,
+Chart,chart-sales-revenue,Mar,10500,,,,,,
+Chart,chart-sales-revenue,Apr,11200,,,,,,
+Chart,chart-sales-revenue,May,12500,,,,,,
+Chart,chart-sales-revenue,Jun,13800,,,,,,
+Chart,chart-user-growth,Jan,1200,,,,,,
+Chart,chart-user-growth,Feb,1350,,,,,,
+Chart,chart-user-growth,Mar,1500,,,,,,
+Chart,chart-user-growth,Apr,1650,,,,,,
+Chart,chart-user-growth,May,1800,,,,,,
+Chart,chart-user-growth,Jun,2100,,,,,,
+Chart,chart-product-performance,Smartphones,450,,,,,,
+Chart,chart-product-performance,Laptops,320,,,,,,
+Chart,chart-product-performance,Headphones,280,,,,,,
+Chart,chart-product-performance,Cameras,150,,,,,,
+Chart,chart-product-performance,Consoles,120,,,,,,
+Activity,table-recent-activity,,,,,2023-10-27T10:30:00,order,New order #5555 placed,success,Alice Smith
+Activity,table-recent-activity,,,,,2023-10-27T09:15:00,user,New user registration,info,Bob Jones
+Activity,table-recent-activity,,,,,2023-10-26T16:45:00,payment,Payment failed for #5550,error,Charlie Day
+Activity,table-recent-activity,,,,,2023-10-26T14:20:00,update,Inventory updated,warning,System Admin
+Activity,table-recent-activity,,,,,2023-10-26T11:10:00,order,Order #5551 shipped,success,Alice Smith

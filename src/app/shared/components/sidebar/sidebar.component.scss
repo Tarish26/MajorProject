@@ -2,6 +2,9 @@
   width: 260px;
   height: 100vh;
   background: var(--sidebar-bg, #1e293b);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--border-color);
   color: var(--sidebar-text, #e2e8f0);
   display: flex;
   flex-direction: column;
@@ -10,7 +13,6 @@
   left: 0;
   top: 0;
   z-index: 1000;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 
   &.collapsed {
     width: 80px;

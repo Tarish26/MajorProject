@@ -17,7 +17,7 @@ import {
     CommonModule,
     MetricCardComponent,
     ChartCardComponent,
-    ActivityTableComponent,
+    ActivityTableComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -35,12 +35,12 @@ export class DashboardComponent implements OnInit {
     this.config$ = this.dashboardService.config$;
   }
   ngOnInit() {
-   
+
     // Manually trigger the load *once* in the service.
     // The service will then update the observables for the async pipes.
     this.dashboardService.getConfig().subscribe();
   }
-  
+
 
   // All your type guards and helper functions are perfect.
   isMetricCard(

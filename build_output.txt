@@ -1,0 +1,13 @@
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[33mÔØ»[39m Building...
+[32mÔ£ö[39m Building...
+Application bundle generation failed. [3.846 seconds] - 2026-03-04T16:34:55.710Z
+
+X [ERROR] expected "{".
+    ÔòÀ
+132 Ôöé   grid-template-columns: repeat(2, 1fr) !important;
+    Ôöé                                         ^
+    ÔòÁ
+  src\app\features\dashboard\dashboard.component.scss 132:41  root stylesheet [plugin angular-sass]
+
+

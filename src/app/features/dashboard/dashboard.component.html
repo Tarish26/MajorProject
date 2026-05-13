@@ -3,7 +3,7 @@
   @if (config$ | async; as config) {
 
   <div class="dashboard-header">
-    <h1>{{ config.title }}</h1>
+    <h1 [attr.data-title]="config.title">{{ config.title }}</h1>
     @if (config.description) {
     <p>{{ config.description }}</p>
     }

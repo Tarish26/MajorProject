@@ -4,6 +4,74 @@
         <p *ngIf="config.description">{{ config.description }}</p>
     </header>
 
+    <div class="csv-section scale-in-center">
+        <div class="upload-container">
+            <div class="upload-content">
+                <h2>Import Data</h2>
+                <p>Upload a CSV file to generate instant analytics</p>
+                <div class="file-input-wrapper">
+                    <input type="file" (change)="onFileSelected($event)" accept=".csv" class="file-input"
+                        id="csvUpload">
+                    <label for="csvUpload" class="file-label">
+                        <span class="icon">📊</span>
+                        <span class="text">Choose CSV File</span>
+                    </label>
+                </div>
+                <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+                <div *ngIf="isProcessing" class="loading-spinner"></div>
+            </div>
+        </div>
+
+
+
+        <!-- Dashboard Update Success -->
+        <div class="success-message glass-panel scale-in-center" *ngIf="dashboardUpdated">
+            <div class="content">
+                <div class="icon-wrapper">
+                    <span class="material-icons">check_circle</span>
+                </div>
+                <div class="text">
+                    <h3>Dashboard Successfully Updated</h3>
+                    <p>Processed data from <strong>{{ fileName }}</strong> has been applied to the main dashboard.</p>
+                </div>
+            </div>
+            <button class="btn-primary" (click)="navigateToDashboard()">
+                View Dashboard <span class="material-icons">arrow_forward</span>
+            </button>
+        </div>
+
+        <div class="chart-container glass-panel" *ngIf="customChartData">
+
+            <div class="chart-controls">
+                <div class="meta-info">
+                    <h3>{{ fileName || 'Custom Analysis' }}</h3>
+                    <span class="timestamp" *ngIf="lastUpdated">Updated: {{ lastUpdated | date:'medium' }}</span>
+                </div>
+
+                <div class="chart-actions">
+                    <div class="chart-type-selector">
+                        <button [class.active]="selectedChartType === 'line'" (click)="onChartTypeChange('line')"
+                            title="Line Chart">📈</button>
+                        <button [class.active]="selectedChartType === 'bar'" (click)="onChartTypeChange('bar')"
+                            title="Bar Chart">📊</button>
+                        <button [class.active]="selectedChartType === 'pie'" (click)="onChartTypeChange('pie')"
+                            title="Pie Chart">🍰</button>
+                        <button [class.active]="selectedChartType === 'doughnut'"
+                            (click)="onChartTypeChange('doughnut')" title="Doughnut Chart">🍩</button>
+                        <button [class.active]="selectedChartType === 'radar'" (click)="onChartTypeChange('radar')"
+                            title="Radar Chart">🕸️</button>
+                    </div>
+
+                    <button class="btn-clear" (click)="clearData()">
+                        <span class="icon">🗑️</span> Clear
+                    </button>
+                </div>
+            </div>
+            <app-modern-chart [data]="customChartData" [title]="''" [type]="selectedChartType"
+                [options]="chartOptions"></app-modern-chart>
+        </div>
+    </div>
+
     <ng-container *ngIf="config$ | async as config">
         <div class="dashboard-content" [style.grid-template-columns]="'repeat(auto-fit, minmax(250px, 1fr))'"
             [style.gap]="config.layout?.gap || '1.5rem'">

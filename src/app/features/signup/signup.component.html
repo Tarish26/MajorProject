@@ -1,0 +1,91 @@
+<div class="canvas-container" #threejsCanvas></div>
+<div class="login-container">
+  <div class="login-card glass-panel">
+    <div class="login-header">
+      <div class="logo">
+        <i class="material-icons" style="font-size: 2rem;">person_add</i>
+      </div>
+      <h2>Create Account</h2>
+      <p>Sign up to get started</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrapper">
+          <i class="material-icons">email</i>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            placeholder="Enter your email"
+            [class.invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+          >
+        </div>
+        <div class="error-message" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+          Please enter a valid email address.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <i class="material-icons">lock</i>
+          <input 
+            [type]="showPassword() ? 'text' : 'password'" 
+            id="password" 
+            formControlName="password" 
+            placeholder="Create a password"
+            [class.invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+          >
+          <i class="material-icons toggle-password" (click)="togglePasswordVisibility()">
+            {{ showPassword() ? 'visibility_off' : 'visibility' }}
+          </i>
+        </div>
+        <div class="error-message" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+          <ng-container *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</ng-container>
+          <ng-container *ngIf="signupForm.get('password')?.errors?.['minlength'] || signupForm.get('password')?.errors?.['pattern']">
+            Password must be at least 8 characters long, containing at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-wrapper">
+          <i class="material-icons">lock</i>
+          <input 
+            [type]="showConfirmPassword() ? 'text' : 'password'" 
+            id="confirmPassword" 
+            formControlName="confirmPassword" 
+            placeholder="Confirm your password"
+            [class.invalid]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched"
+          >
+          <i class="material-icons toggle-password" (click)="toggleConfirmPasswordVisibility()">
+            {{ showConfirmPassword() ? 'visibility_off' : 'visibility' }}
+          </i>
+        </div>
+        <div class="error-message" *ngIf="signupForm.get('confirmPassword')?.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched">
+          Passwords do not match.
+        </div>
+      </div>
+
+      <div class="error-alert" *ngIf="errorMessage()">
+        <i class="material-icons">error_outline</i>
+        <span>{{ errorMessage() }}</span>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="isLoading()">
+        <span *ngIf="!isLoading()">Sign Up</span>
+        <span *ngIf="isLoading()" class="spinner"><i class="material-icons spin">refresh</i></span>
+      </button>
+
+      <div class="auth-links" style="margin-top: 1.5rem; text-align: center;">
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+          Already have an account? 
+          <a routerLink="/login" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Log in</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
