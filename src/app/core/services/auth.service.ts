@@ -13,10 +13,12 @@ export class AuthService {
 
   private readonly currentUserSubject = new BehaviorSubject<User | null | undefined>(undefined);
   readonly user$: Observable<User | null | undefined> = this.currentUserSubject.asObservable();
+  private wasLoggedIn = false;
 
   constructor() {
     user(this.auth).subscribe((firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
+        this.wasLoggedIn = true;
         this.currentUserSubject.next({
           id: firebaseUser.uid,
           name: firebaseUser.displayName || 'User',
@@ -26,6 +28,11 @@ export class AuthService {
         });
       } else {
         this.currentUserSubject.next(null);
+        // If they were previously logged in and state becomes null (e.g. logout from another tab)
+        if (this.wasLoggedIn) {
+          this.wasLoggedIn = false;
+          this.router.navigate(['/login']);
+        }
       }
     });
   }
